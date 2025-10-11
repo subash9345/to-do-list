@@ -124,12 +124,8 @@ const CategoryBadge = styled.span`
 const Actions = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.xs};
-  opacity: 0;
+  opacity: 1;
   transition: opacity ${({ theme }) => theme.transitions.fast};
-
-  ${TodoCardContainer}:hover & {
-    opacity: 1;
-  }
 `;
 
 const ActionButton = styled.button`
@@ -188,16 +184,19 @@ const TodoCard = React.memo(({
 
   const handleEdit = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     onEdit(todo);
   };
 
   const handleDelete = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     onDelete(todo.id);
   };
 
   const handleToggle = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     onToggle(todo.id);
   };
 
@@ -214,6 +213,7 @@ const TodoCard = React.memo(({
         <CheckboxButton
           $completed={todo.completed}
           onClick={handleToggle}
+          onPointerDown={(e) => e.stopPropagation()}
           aria-label={todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
         >
           {todo.completed ? <MdCheckCircle size={24} /> : <MdRadioButtonUnchecked size={24} />}
@@ -264,12 +264,17 @@ const TodoCard = React.memo(({
         </TodoContent>
 
         <Actions>
-          <ActionButton onClick={handleEdit} aria-label="Edit todo">
+          <ActionButton
+            onClick={handleEdit}
+            onPointerDown={(e) => e.stopPropagation()}
+            aria-label="Edit todo"
+          >
             <MdEdit size={18} />
           </ActionButton>
           <ActionButton
             $variant="danger"
             onClick={handleDelete}
+            onPointerDown={(e) => e.stopPropagation()}
             aria-label="Delete todo"
           >
             <MdDelete size={18} />

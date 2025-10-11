@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { MdDarkMode, MdLightMode, MdSettings, MdKeyboard, MdFileDownload, MdFileUpload } from 'react-icons/md';
+import { MdDarkMode, MdLightMode, MdKeyboard, MdFileDownload, MdFileUpload } from 'react-icons/md';
 import { FaTasks } from 'react-icons/fa';
 import { useTheme } from '../../contexts/ThemeContext';
 
@@ -94,7 +94,7 @@ const IconButton = styled(motion.button)`
  * Header Component
  * Top navigation bar with branding and actions
  */
-const Header = React.memo(({ onOpenSettings, onOpenShortcuts, onExport, onImport }) => {
+const Header = React.memo(({ onOpenShortcuts, onExport, onImport }) => {
   const { isDark, toggleTheme } = useTheme();
 
   return (
@@ -147,15 +147,6 @@ const Header = React.memo(({ onOpenSettings, onOpenShortcuts, onExport, onImport
             whileTap={{ scale: 0.95 }}
           >
             {isDark ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
-          </IconButton>
-
-          <IconButton
-            onClick={onOpenSettings}
-            title="Settings"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <MdSettings size={20} />
           </IconButton>
         </Actions>
       </HeaderContent>

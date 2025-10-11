@@ -13,7 +13,6 @@ import TodoList from './components/todos/TodoList';
 import TodoForm from './components/todos/TodoForm';
 import Statistics from './components/features/Statistics';
 import KeyboardShortcuts from './components/features/KeyboardShortcuts';
-import Settings from './components/features/Settings';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import { FILTER_TYPES, SORT_TYPES } from './types/todo';
 import useKeyboardShortcut from './hooks/useKeyboardShortcut';
@@ -69,7 +68,6 @@ const AppContent = () => {
   // UI State
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [editingTodo, setEditingTodo] = useState(null);
 
   // Filter & Sort State
@@ -213,7 +211,6 @@ const AppContent = () => {
   return (
     <>
       <Header
-        onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenShortcuts={() => setIsShortcutsOpen(true)}
         onExport={handleExport}
         onImport={handleImport}
@@ -260,8 +257,6 @@ const AppContent = () => {
       />
 
       <KeyboardShortcuts isOpen={isShortcutsOpen} onClose={() => setIsShortcutsOpen(false)} />
-
-      <Settings isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
       <input
         ref={fileInputRef}
