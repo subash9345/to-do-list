@@ -53,7 +53,7 @@ const TodoList = React.memo(({ todos, onToggle, onEdit, onDelete, onReorder }) =
   const handleDragEnd = (event) => {
     const { active, over } = event;
 
-    if (active.id !== over.id) {
+    if (over && active.id !== over.id) {
       const oldIndex = todos.findIndex(todo => todo.id === active.id);
       const newIndex = todos.findIndex(todo => todo.id === over.id);
       const newOrder = arrayMove(todos, oldIndex, newIndex);

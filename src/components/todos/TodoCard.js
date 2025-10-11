@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { format, isPast, isToday } from 'date-fns';
+import { format, isPast } from 'date-fns';
 import {
   MdCheckCircle,
   MdRadioButtonUnchecked,
@@ -26,6 +25,7 @@ const TodoCardContainer = styled(Card)`
     if ($priority === 'medium') return theme.colors.priorityMedium;
     return theme.colors.priorityLow;
   }};
+  touch-action: none;
 
   &:active {
     cursor: grabbing;
@@ -186,6 +186,21 @@ const TodoCard = React.memo(({
   const completedSubtasks = todo.subtasks?.filter(st => st.completed).length || 0;
   const totalSubtasks = todo.subtasks?.length || 0;
 
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    onEdit(todo);
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    onDelete(todo.id);
+  };
+
+  const handleToggle = (e) => {
+    e.stopPropagation();
+    onToggle(todo.id);
+  };
+
   return (
     <TodoCardContainer
       ref={setNodeRef}
@@ -198,7 +213,7 @@ const TodoCard = React.memo(({
       <TodoHeader>
         <CheckboxButton
           $completed={todo.completed}
-          onClick={() => onToggle(todo.id)}
+          onClick={handleToggle}
           aria-label={todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
         >
           {todo.completed ? <MdCheckCircle size={24} /> : <MdRadioButtonUnchecked size={24} />}
@@ -249,12 +264,12 @@ const TodoCard = React.memo(({
         </TodoContent>
 
         <Actions>
-          <ActionButton onClick={() => onEdit(todo)} aria-label="Edit todo">
+          <ActionButton onClick={handleEdit} aria-label="Edit todo">
             <MdEdit size={18} />
           </ActionButton>
           <ActionButton
             $variant="danger"
-            onClick={() => onDelete(todo.id)}
+            onClick={handleDelete}
             aria-label="Delete todo"
           >
             <MdDelete size={18} />

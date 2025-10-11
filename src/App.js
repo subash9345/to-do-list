@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback, useRef } from 'react';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { isToday, isThisWeek, isPast } from 'date-fns';
 import { MdAdd } from 'react-icons/md';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -13,9 +13,8 @@ import TodoList from './components/todos/TodoList';
 import TodoForm from './components/todos/TodoForm';
 import Statistics from './components/features/Statistics';
 import KeyboardShortcuts from './components/features/KeyboardShortcuts';
+import Settings from './components/features/Settings';
 import ErrorBoundary from './components/common/ErrorBoundary';
-import Button from './components/common/Button';
-import Modal from './components/common/Modal';
 import { FILTER_TYPES, SORT_TYPES } from './types/todo';
 import useKeyboardShortcut from './hooks/useKeyboardShortcut';
 
@@ -70,6 +69,7 @@ const AppContent = () => {
   // UI State
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [editingTodo, setEditingTodo] = useState(null);
 
   // Filter & Sort State
@@ -213,7 +213,7 @@ const AppContent = () => {
   return (
     <>
       <Header
-        onOpenSettings={() => {}}
+        onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenShortcuts={() => setIsShortcutsOpen(true)}
         onExport={handleExport}
         onImport={handleImport}
@@ -260,6 +260,8 @@ const AppContent = () => {
       />
 
       <KeyboardShortcuts isOpen={isShortcutsOpen} onClose={() => setIsShortcutsOpen(false)} />
+
+      <Settings isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
       <input
         ref={fileInputRef}

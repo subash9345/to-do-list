@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { MdDarkMode, MdLightMode, MdSettings, MdKeyboard, MdFileDownload, MdFileUpload } from 'react-icons/md';
 import { FaTasks } from 'react-icons/fa';
 import { useTheme } from '../../contexts/ThemeContext';
-import Button from '../common/Button';
 
 const HeaderContainer = styled(motion.header)`
   background: ${({ theme }) => theme.colors.surface};
